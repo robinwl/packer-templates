@@ -10,6 +10,7 @@ https://vagrantcloud.com/robin
 
 These baseboxes were all built using a Ubuntu 14.04 x86_64 host running VirtualBox 4.3.12, and have that format of Guest Extensions.
 
+* centos-7.0-x86_64.json
 * debian-6.0.10-amd64.json
 * debian-7.6-amd64.json
 * ubuntu-12.04-amd64.json
