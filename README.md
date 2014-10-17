@@ -1,4 +1,4 @@
-# robin/packer-templates
+# robinwl/packer-templates
 
 Collection of [Packer](http://packer.io) templates for building [Vagrant](http://vagrantup.com) baseboxes.
 
