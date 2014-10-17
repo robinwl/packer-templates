@@ -1,0 +1,72 @@
+{
+  "variables": {
+    "suffix": "se",
+    "mirror": "http://cdimage.debian.org/cdimage/archive"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<esc><wait>",
+        "install <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-6/preseed.cfg <wait>",
+        "debian-installer=en_US <wait>",
+        "auto <wait>",
+        "locale=sv_SE <wait>",
+        "kbd-chooser/method=se <wait>",
+        "keyboard-configuration/xkb-keymap=se <wait>",
+        "netcfg/get_hostname={{ .Name }} <wait>",
+        "netcfg/get_domain=vagrantup.com <wait>",
+        "fb=false <wait>",
+        "debconf/frontend=noninteractive <wait>",
+        "console-setup/ask_detect=false <wait>",
+        "console-keymaps-at/keymap=se <wait>",
+        "<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 40960,
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "Debian_64",
+      "http_directory": "http",
+      "iso_checksum": "f3e70528664f174a121b26491c59cd66daaf8274",
+      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `mirror`}}/6.0.10/amd64/iso-cd/debian-6.0.10-amd64-CD-1.iso",
+      "output_directory": "packer-debian-6.0.10-amd64-virtualbox",
+      "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "384" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "packer-debian-6.0.10-amd64"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "../builds/{{.Provider}}/debian-6.0.10-amd64-{{user `suffix`}}.box"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "environment_vars": [ "suffix={{user `suffix`}}" ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/debian/update.sh",
+        "scripts/common/sshd.sh",
+        "scripts/debian/networking.sh",
+        "scripts/debian/sudoers.sh",
+        "scripts/common/vagrant.sh",
+        "scripts/common/vmtools.sh",
+        "scripts/common/chef.sh",
+        "scripts/debian/cleanup.sh",
+        "scripts/common/minimize.sh"
+      ]
+    }
+  ]
+}

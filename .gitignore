@@ -1,5 +1,9 @@
-# Cache objects
-packer_cache/
-
-# For built boxes
+bin/
+.bundle/
+iso
 *.box
+*.vdi
+virtualfloppy.vfd
+packer_cache
+packer.log
+.DS_Store
