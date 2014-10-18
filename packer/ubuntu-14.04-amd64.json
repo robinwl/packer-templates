@@ -30,13 +30,12 @@
         "<enter><wait>"
       ],
       "boot_wait": "10s",
-      "disk_size": 40960,
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "disk_size": 20960,
       "guest_os_type": "Ubuntu_64",
       "http_directory": "http",
-      "iso_checksum": "4d94f6111b8fe47da94396180ce499d8c0bb44f3",
+      "iso_checksum": "401c5f6666fe2879ac3a9a3247b487723410cf88",
       "iso_checksum_type": "sha1",
-      "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04-server-amd64.iso",
+      "iso_url": "{{user `mirror`}}/trusty/ubuntu-14.04.1-server-amd64.iso",
       "output_directory": "packer-ubuntu-14.04-amd64-virtualbox",
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
       "ssh_password": "vagrant",
@@ -44,8 +43,10 @@
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
       "type": "virtualbox-iso",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_additions_url": "http://download.virtualbox.org/virtualbox/4.3.12/VBoxGuestAdditions_4.3.12.iso",
       "guest_additions_sha256": "c76dd5ec86f61ad72263ab6d2405723b06badfc2fae57f83ffa5de96f553400d",
+      "headless": false,
       "vboxmanage": [
         [
           "modifyvm",
