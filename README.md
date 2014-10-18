@@ -4,7 +4,13 @@ Collection of [Packer](http://packer.io) templates for building [Vagrant](http:/
 
 ## Baseboxes
 
+### Vagrant Cloud
+
 https://vagrantcloud.com/robin
+
+### HTTP
+
+http://vagrant.naas.io
 
 ### VirtualBox
 
@@ -16,7 +22,7 @@ These baseboxes were all built using a Ubuntu 14.04 x86_64 host running VirtualB
 * ubuntu-12.04-amd64.json
 * ubuntu-14.04-amd64.json
 
-## Build Your Own Boxes
+## Build your own boxes
 
 First, install [Packer](http://packer.io).
 
