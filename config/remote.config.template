@@ -1,0 +1,4 @@
+REMOTE_DIR="/srv/public/vagrant"
+REMOTE_USER="vagrant"
+REMOTE_HOST="vagrant.example.com"
+
