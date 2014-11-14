@@ -29,6 +29,9 @@ else
   pkg_add -r sudo curl ca_root_nss bash
 fi
 
+# Change default shell
+chsh -s /usr/local/bin/bash vagrant
+
 # Emulate the ETCSYMLINK behavior of ca_root_nss; this is for FreeBSD 10, where fetch(1) was
 # massively refactored and doesn't come with SSL CAcerts anymore
 ln -sf /usr/local/share/certs/ca-root-nss.crt /etc/ssl/cert.pem
