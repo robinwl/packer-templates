@@ -48,7 +48,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "../builds/{{.Provider}}/debian-6.0.10-amd64-{{user `suffix`}}.box"
+      "output": "../builds/{{.Provider}}/debian-6-amd64-{{user `suffix`}}.box"
     }
   ],
   "provisioners": [
