@@ -1,0 +1,82 @@
+{
+  "variables": {
+    "suffix": "se",
+    "mirror": "http://ftp.welovecloud.se",
+    "PACKER_LOG": true
+  },
+  "builders": [
+    {
+      "boot_command": [
+        "<enter><wait10>",
+        " 1<enter>",
+        " 1<enter>",
+        "<enter><wait>",
+        "passwd<enter>",
+        "vagrant<enter>",
+        "vagrant<enter>",
+        "dhcpcd eth0<enter><wait>",
+        "mount /dev/cdrom /cdrom<enter><wait>",
+        "installpkg /cdrom/slackware64/n/openssh-6.3p1-x86_64-1.txz<enter><wait>",
+        "/etc/rc.d/rc.sshd start<enter>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20960,
+      "guest_os_type": "Linux26_64",
+      "http_directory": "http",
+      "iso_checksum": "d00807a86fad75bc90adf72c52c561202591d6ef",
+      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `mirror`}}/pub/Linux/ISO/slackware64-14.1-install-dvd.iso",
+      "output_directory": "packer-slackware-14.1-x86_64-virtualbox",
+      "shutdown_command": "echo 'vagrant'| poweroff",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "root",
+      "ssh_wait_timeout": "10000s",
+      "type": "virtualbox-iso",
+      "guest_additions_mode": "disable",
+      "headless": false,
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "384"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "packer-slackware-14.1-x86_64"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "../builds/{{.Provider}}/slackware-14.1-x86_64-{{user `suffix`}}.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "suffix={{user `suffix`}}"
+      ],
+      "scripts": [
+        "scripts/slackware/fdisk.sh",
+        "scripts/slackware/bootstrap.sh",
+        "scripts/slackware/network.sh",
+        "scripts/slackware/hosts.sh",
+        "scripts/slackware/hostname.sh",
+        "scripts/slackware/lilo.sh",
+        "scripts/slackware/fstab.sh",
+        "scripts/slackware/user.sh",
+        "scripts/slackware/kernel.sh",
+        "scripts/slackware/minimize.sh"
+      ],
+      "type": "shell"
+    }
+  ]
+}
